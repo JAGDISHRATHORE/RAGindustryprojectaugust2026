@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "complyrag"
+version = "0.1.0"
+description = "Agentic RAG for EU AI Act compliance gap analysis of high-risk AI systems"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Jagdish Rathore" }]
+dependencies = [
+    "pydantic>=2.7",
+    "pydantic-settings>=2.3",
+    "pyyaml>=6.0",
+    "numpy>=1.26",
+    "scikit-learn>=1.4",
+    "joblib>=1.3",
+    "rank-bm25>=0.2.2",
+    "qdrant-client>=1.10",
+    "langgraph>=0.2",
+    "openai>=1.40",
+    "tenacity>=8.2",
+    "fastapi>=0.111",
+    "uvicorn[standard]>=0.30",
+    "typer>=0.12",
+    "opentelemetry-sdk>=1.25",
+]
+
+[project.optional-dependencies]
+# ONNX embedding and reranking models. Kept optional so CI can run fully offline.
+models = ["fastembed>=0.4"]
+otlp = ["opentelemetry-exporter-otlp>=1.25"]
+dev = ["pytest>=8", "httpx>=0.27", "ruff>=0.5"]
+
+[project.scripts]
+complyrag = "complyrag.cli:app"
+
+[tool.setuptools.packages.find]
+include = ["complyrag*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+ignore = ["B008"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
