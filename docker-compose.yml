@@ -1,0 +1,32 @@
+# Local stack: API + Ollama (local LLM) + Jaeger (traces).
+#   docker compose up -d
+#   docker compose exec ollama ollama pull qwen2.5:7b-instruct
+#   curl -X POST localhost:8000/assessments -H 'content-type: application/json' -d '{}'
+# Traces: http://localhost:16686
+
+services:
+  api:
+    build: .
+    ports: ["8000:8000"]
+    environment:
+      COMPLYRAG_LLM_BASE_URL: http://ollama:11434/v1
+      COMPLYRAG_LLM_MODEL: ${COMPLYRAG_LLM_MODEL:-qwen2.5:7b-instruct}
+      COMPLYRAG_API_KEY: ${COMPLYRAG_API_KEY:-}
+      COMPLYRAG_OTEL_EXPORTER: otlp
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318
+    volumes:
+      - complyrag-state:/app/state
+    depends_on: [ollama, jaeger]
+
+  ollama:
+    image: ollama/ollama:0.5.7
+    volumes:
+      - ollama-models:/root/.ollama
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.62.0
+    ports: ["16686:16686"]
+
+volumes:
+  complyrag-state:
+  ollama-models:
