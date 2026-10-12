@@ -1,0 +1,104 @@
+# Answer key for the CreditLens demo corpus.
+#
+# verdict    expected outcome of the assessment
+# evidence   sections a human assessor would cite (chunk ids are <doc_id>#s<section>).
+#            For gaps these are the closest relevant sections, used to score retrieval.
+# missing    checklist items that are not met. Used to check that partial
+#            verdicts are partial for the right reason.
+# trap       distractor sections that would wrongly turn this into "covered"
+#            if they were accepted as evidence.
+
+labels:
+  A9.1:
+    verdict: covered
+    evidence: [NWK-RMP-004#s1, NWK-RMP-004#s2]
+  A9.2:
+    verdict: covered
+    evidence: [NWK-RMP-004#s3, NWK-RMP-004#s4, NWK-RMP-004#s5, NWK-RMP-004#s6]
+  A9.4:
+    verdict: gap
+    evidence: [NWK-RMP-004#s5]
+    missing: [interaction]
+    trap: [NWK-MC-FG-03#s6]
+  A9.5:
+    verdict: partial
+    evidence: [NWK-RMP-004#s7, NWK-HOP-003#s4]
+    missing: [deployer_training]
+    trap: [NWK-MC-FG-03#s3]
+  A9.6:
+    verdict: covered
+    evidence: [NWK-MC-CL-07#s4]
+  A9.8:
+    verdict: covered
+    evidence: [NWK-MC-CL-07#s4]
+  A9.9:
+    verdict: partial
+    evidence: [NWK-RMP-004#s8]
+    missing: [vulnerable_groups]
+  A10.2:
+    verdict: partial
+    evidence: [NWK-DGS-011#s2, NWK-DGS-011#s3, NWK-DGS-011#s4, NWK-DGS-011#s6]
+    missing: [data_gaps]
+    trap: [NWK-MC-FG-03#s5]
+  A10.3:
+    verdict: covered
+    evidence: [NWK-DGS-011#s5]
+  A10.4:
+    verdict: gap
+    evidence: [NWK-IFU-CL-07#s9, NWK-DGS-011#s5]
+    missing: [setting_specific]
+    trap: [NWK-MC-FG-03#s7]
+  A10.5:
+    verdict: not_applicable
+  A10.6:
+    verdict: not_applicable
+  A11.1:
+    verdict: covered
+    evidence: [NWK-MC-CL-07#s1]
+  A11.2:
+    verdict: not_applicable
+  A12.1:
+    verdict: covered
+    evidence: [NWK-RUN-022#s2]
+  A12.2:
+    verdict: covered
+    evidence: [NWK-RUN-022#s3]
+  A12.3:
+    verdict: not_applicable
+  A13.1:
+    verdict: covered
+    evidence: [NWK-IFU-CL-07#s3]
+  A13.2:
+    verdict: covered
+    evidence: [NWK-IFU-CL-07#s1]
+  A13.3:
+    verdict: partial
+    evidence: [NWK-IFU-CL-07#s2, NWK-IFU-CL-07#s3, NWK-IFU-CL-07#s4, NWK-IFU-CL-07#s5, NWK-IFU-CL-07#s6, NWK-IFU-CL-07#s7, NWK-IFU-CL-07#s8]
+    missing: [resources_lifetime, log_mechanism]
+  A14.1:
+    verdict: covered
+    evidence: [NWK-HOP-003#s2]
+  A14.3:
+    verdict: covered
+    evidence: [NWK-HOP-003#s3]
+  A14.4:
+    verdict: partial
+    evidence: [NWK-HOP-003#s4, NWK-HOP-003#s5, NWK-HOP-003#s6]
+    missing: [automation_bias, stop]
+    trap: [NWK-MC-FG-03#s2, NWK-MC-FG-03#s3]
+  A14.5:
+    verdict: not_applicable
+  A15.1:
+    verdict: covered
+    evidence: [NWK-SEC-CL-02#s2, NWK-MC-CL-07#s6]
+  A15.3:
+    verdict: covered
+    evidence: [NWK-IFU-CL-07#s4]
+  A15.4:
+    verdict: covered
+    evidence: [NWK-SEC-CL-02#s3, NWK-SEC-CL-02#s4]
+  A15.5:
+    verdict: partial
+    evidence: [NWK-SEC-CL-02#s5]
+    missing: [data_poisoning, model_poisoning, adversarial_examples]
+    trap: [NWK-MC-FG-03#s4]
