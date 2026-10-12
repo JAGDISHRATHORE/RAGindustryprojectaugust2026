@@ -1,0 +1,202 @@
+{
+  "config": {
+    "embedding": "lsa",
+    "reranker": "none",
+    "judge": "rules",
+    "index_version": "a8935fdc3594-lsa",
+    "date": "2026-10-12"
+  },
+  "retrieval": [
+    {
+      "retrieval": "sparse",
+      "reranker": "none",
+      "scope_filter": false,
+      "recall@k": 0.96,
+      "mrr": 0.859,
+      "contamination": 0.09,
+      "trap_hits": 4,
+      "n": 23
+    },
+    {
+      "retrieval": "sparse",
+      "reranker": "none",
+      "scope_filter": true,
+      "recall@k": 0.96,
+      "mrr": 0.88,
+      "contamination": 0.0,
+      "trap_hits": 0,
+      "n": 23
+    },
+    {
+      "retrieval": "dense",
+      "reranker": "none",
+      "scope_filter": false,
+      "recall@k": 0.872,
+      "mrr": 0.672,
+      "contamination": 0.075,
+      "trap_hits": 4,
+      "n": 23
+    },
+    {
+      "retrieval": "dense",
+      "reranker": "none",
+      "scope_filter": true,
+      "recall@k": 0.872,
+      "mrr": 0.686,
+      "contamination": 0.0,
+      "trap_hits": 0,
+      "n": 23
+    },
+    {
+      "retrieval": "hybrid",
+      "reranker": "none",
+      "scope_filter": false,
+      "recall@k": 0.915,
+      "mrr": 0.715,
+      "contamination": 0.083,
+      "trap_hits": 4,
+      "n": 23
+    },
+    {
+      "retrieval": "hybrid",
+      "reranker": "none",
+      "scope_filter": true,
+      "recall@k": 0.915,
+      "mrr": 0.726,
+      "contamination": 0.0,
+      "trap_hits": 0,
+      "n": 23
+    }
+  ],
+  "verdicts": [
+    {
+      "setup": "naive",
+      "accuracy": 0.893,
+      "macro_f1": 0.844,
+      "false_covered": [
+        "A9.4",
+        "A10.2",
+        "A15.5"
+      ],
+      "gap_item_recall": 0.417,
+      "flagged_for_review": 6,
+      "llm_calls": 0,
+      "tokens": 0,
+      "seconds": 0.6,
+      "confusion": {
+        "covered": {
+          "covered": 15,
+          "partial": 0,
+          "gap": 0,
+          "not_applicable": 0
+        },
+        "partial": {
+          "covered": 2,
+          "partial": 4,
+          "gap": 0,
+          "not_applicable": 0
+        },
+        "gap": {
+          "covered": 1,
+          "partial": 0,
+          "gap": 1,
+          "not_applicable": 0
+        },
+        "not_applicable": {
+          "covered": 0,
+          "partial": 0,
+          "gap": 0,
+          "not_applicable": 5
+        }
+      },
+      "errors": {
+        "A9.4": "gap -> covered",
+        "A10.2": "partial -> covered",
+        "A15.5": "partial -> covered"
+      }
+    },
+    {
+      "setup": "verifier",
+      "accuracy": 0.964,
+      "macro_f1": 0.897,
+      "false_covered": [],
+      "gap_item_recall": 1.0,
+      "flagged_for_review": 9,
+      "llm_calls": 0,
+      "tokens": 0,
+      "seconds": 0.6,
+      "confusion": {
+        "covered": {
+          "covered": 15,
+          "partial": 0,
+          "gap": 0,
+          "not_applicable": 0
+        },
+        "partial": {
+          "covered": 0,
+          "partial": 6,
+          "gap": 0,
+          "not_applicable": 0
+        },
+        "gap": {
+          "covered": 0,
+          "partial": 1,
+          "gap": 1,
+          "not_applicable": 0
+        },
+        "not_applicable": {
+          "covered": 0,
+          "partial": 0,
+          "gap": 0,
+          "not_applicable": 5
+        }
+      },
+      "errors": {
+        "A9.4": "gap -> partial"
+      }
+    },
+    {
+      "setup": "full",
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "false_covered": [],
+      "gap_item_recall": 1.0,
+      "flagged_for_review": 7,
+      "llm_calls": 0,
+      "tokens": 0,
+      "seconds": 0.5,
+      "confusion": {
+        "covered": {
+          "covered": 15,
+          "partial": 0,
+          "gap": 0,
+          "not_applicable": 0
+        },
+        "partial": {
+          "covered": 0,
+          "partial": 6,
+          "gap": 0,
+          "not_applicable": 0
+        },
+        "gap": {
+          "covered": 0,
+          "partial": 0,
+          "gap": 2,
+          "not_applicable": 0
+        },
+        "not_applicable": {
+          "covered": 0,
+          "partial": 0,
+          "gap": 0,
+          "not_applicable": 5
+        }
+      },
+      "errors": {}
+    }
+  ],
+  "guardrails": {
+    "cases": 16,
+    "precision": 1.0,
+    "recall": 1.0
+  }
+}
