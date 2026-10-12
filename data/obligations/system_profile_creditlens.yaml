@@ -1,0 +1,19 @@
+# Facts about the system under assessment. Applicability of an obligation is
+# decided from these flags by rules, never by the LLM.
+system_id: creditlens
+name: CreditLens consumer credit scoring
+provider: Nordwind Kreditbank AG (fictional)
+role: provider            # provider | deployer
+risk_class: high-risk
+annex_iii_reference: "Annex III, point 5(b): creditworthiness assessment of natural persons"
+markets: [DE, AT]
+
+trains_models: true
+continues_learning: false
+processes_special_category_data: false
+annex_i_product: false
+annex_iii_1a_biometric: false
+
+# Which documents may count as evidence. Documents tagged with another system
+# (for example fraudguard) are filtered out during retrieval.
+evidence_scope: [creditlens, enterprise]

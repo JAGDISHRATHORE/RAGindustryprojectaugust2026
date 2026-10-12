@@ -1,0 +1,434 @@
+# Provider obligations for high-risk AI systems, EU AI Act Chapter III Section 2
+# (Articles 9 to 15).
+#
+# Each entry points to one numbered paragraph. The verbatim legal text is
+# attached at load time from data/regulation/ai_act_articles.csv, so this file
+# only holds what a compliance analyst adds on top of the law:
+#
+#   checklist   atomic requirements the paragraph breaks down into. The judge
+#               decides each item separately and the final verdict is derived
+#               from the item results in code.
+#   patterns    regular expressions used by the rule-based judge (the offline
+#               baseline). The LLM judge ignores them.
+#   applies_if  conditions on the system profile. Applicability is decided by
+#               rules, not by the model.
+#
+# Paragraphs that only empower the Commission (11(3), 15(2)), only define scope
+# (9(3)) or are purely permissive (9(7), 9(10)) are left out on purpose.
+
+obligations:
+  - id: A9.1
+    article: 9
+    paragraph: 1
+    title: Risk management system is established, implemented, documented and maintained
+    checklist:
+      - id: rms_in_place
+        requirement: A risk management system for the AI system is established and implemented
+        patterns: ['risk management system']
+      - id: rms_documented
+        requirement: The risk management system is documented and maintained over time
+        patterns: ['risk register', 'documented and\s+maintained', 'versioned']
+
+  - id: A9.2
+    article: 9
+    paragraph: 2
+    title: Risk management is a continuous, iterative process with the four required steps
+    checklist:
+      - id: lifecycle
+        requirement: Risk management runs continuously and iteratively across the whole lifecycle
+        patterns: ['continuous', 'iterative', 'whole (model )?lifecycle']
+      - id: regular_review
+        requirement: The risk management system is reviewed and updated regularly and systematically
+        patterns: ['reviewed\s+systematically', 'every\s+quarter', 'quarterly']
+      - id: identify_risks
+        requirement: Known and reasonably foreseeable risks to health, safety or fundamental rights are identified and analysed
+        patterns: ['identifies\s+and\s+analyses', 'foreseeable\s+risks']
+      - id: foreseeable_misuse
+        requirement: Risks under reasonably foreseeable misuse are estimated and evaluated
+        patterns: ['foreseeable\s+misuse']
+      - id: post_market_input
+        requirement: Data from post-market monitoring is used to evaluate further risks
+        patterns: ['post-market', 'monitoring\s+results\s+from\s+production']
+      - id: treatment_measures
+        requirement: Targeted risk management measures are adopted for the identified risks
+        patterns: ['treatment\s+measure', 'measures\s+are\s+targeted']
+
+  - id: A9.4
+    article: 9
+    paragraph: 4
+    title: Risk measures consider how the Section 2 requirements interact
+    checklist:
+      - id: interaction
+        requirement: The combined effect and interaction of the different requirements and measures is considered and balanced
+        patterns: ['interact', 'combined\s+application', 'balances?\s+the\s+measures']
+
+  - id: A9.5
+    article: 9
+    paragraph: 5
+    title: Residual risk is acceptable and measures follow the required priority
+    checklist:
+      - id: residual_risk
+        requirement: Residual risk per hazard and overall residual risk are judged acceptable
+        patterns: ['residual\s+risk']
+      - id: eliminate_by_design
+        requirement: Risks are eliminated or reduced through design and development where feasible
+        patterns: ['eliminated\s+through\s+design', 'through\s+(adequate\s+)?design']
+      - id: mitigation_controls
+        requirement: Mitigation and control measures address risks that cannot be eliminated
+        patterns: ['mitigated\s+with\s+controls', 'cannot\s+be\s+eliminated']
+      - id: deployer_information
+        requirement: Deployers receive the information required by Article 13
+        patterns: ['instructions\s+for\s+use']
+      - id: deployer_training
+        requirement: Training is provided to deployers where appropriate, taking their knowledge and context into account
+        patterns: ['training\s+(module|course|programme|session)', '(officers?|analysts?|staff)\s+(are|is)\s+trained']
+
+  - id: A9.6
+    article: 9
+    paragraph: 6
+    title: The system is tested to identify risk measures and confirm consistent performance
+    checklist:
+      - id: testing_for_measures
+        requirement: Testing is used to identify the most appropriate risk management measures
+        patterns: ['most\s+(suitable|appropriate)\s+risk\s+measures', 'testing\s+is\s+used\s+to']
+      - id: consistent_performance
+        requirement: Testing shows the system performs consistently for its intended purpose
+        patterns: ['performs?\s+consistently']
+
+  - id: A9.8
+    article: 9
+    paragraph: 8
+    title: Testing happens before release against predefined metrics and thresholds
+    checklist:
+      - id: before_release
+        requirement: Testing is performed before the system is placed on the market or put into service
+        patterns: ['before\s+any\s+release', 'mandatory\s+before']
+      - id: predefined_metrics
+        requirement: Testing uses metrics and probabilistic thresholds defined in advance
+        patterns: ['defined\s+before\s+testing', 'release\s+criteria']
+
+  - id: A9.9
+    article: 9
+    paragraph: 9
+    title: Impact on minors and other vulnerable groups is considered
+    checklist:
+      - id: minors
+        requirement: Possible adverse impact on persons under 18 is considered
+        patterns: ['under\s+18', 'minors', 'at\s+least\s+18']
+      - id: vulnerable_groups
+        requirement: Possible adverse impact on other vulnerable groups is considered
+        patterns: ['vulnerable\s+(groups?|persons|customers|applicants)']
+
+  - id: A10.2
+    article: 10
+    paragraph: 2
+    title: Data sets follow data governance and management practices (points a to h)
+    checklist:
+      - id: design_choices
+        requirement: Relevant design choices are documented
+        patterns: ['design\s+choices']
+      - id: collection_origin
+        requirement: Data collection processes, data origin and the original purpose of personal data are documented
+        patterns: ['origin', 'original\s+purpose']
+      - id: preparation
+        requirement: Data preparation steps such as labelling, cleaning and aggregation are documented
+        patterns: ['cleaning', 'labelling', 'data\s+preparation']
+      - id: assumptions
+        requirement: Assumptions about what the data measures and represents are formulated
+        patterns: ['assumptions?']
+      - id: availability
+        requirement: Availability, quantity and suitability of the needed data are assessed
+        patterns: ['sufficient\s+in\s+quantity', 'suitable\s+for\s+the\s+intended\s+purpose']
+      - id: bias_examination
+        requirement: Data is examined for biases that could cause prohibited discrimination
+        patterns: ['examined\s+for\s+bias']
+      - id: bias_mitigation
+        requirement: Measures to detect, prevent and mitigate the identified biases are in place
+        patterns: ['re-weighting', 'removed\s+or\s+constrained']
+      - id: data_gaps
+        requirement: Relevant data gaps or shortcomings are identified together with how they will be addressed
+        patterns: ['data\s+gaps?', 'shortcomings']
+
+  - id: A10.3
+    article: 10
+    paragraph: 3
+    title: Data sets are relevant, representative, error-free and complete
+    checklist:
+      - id: relevance
+        requirement: Data is relevant to the intended purpose
+        patterns: ['relevance']
+      - id: representativeness
+        requirement: Data is sufficiently representative of the target population
+        patterns: ['representativeness', 'representative']
+      - id: errors_completeness
+        requirement: Data is checked for errors and completeness
+        patterns: ['error\s+rates', 'completeness']
+      - id: statistical_properties
+        requirement: Data has appropriate statistical properties for the groups the system is used on
+        patterns: ['statistical\s+properties']
+
+  - id: A10.4
+    article: 10
+    paragraph: 4
+    title: Data reflects the geographical, contextual and behavioural setting of use
+    checklist:
+      - id: setting_specific
+        requirement: Data accounts for the specific geographical, contextual, behavioural or functional setting in which the system is used, including every market it is deployed in
+        patterns: ['(analys\w*|assess\w*|retrain\w*)[^.]{0,80}austria', 'austria\w*[^.]{0,80}(analys|assess|retrain)']
+
+  - id: A10.5
+    article: 10
+    paragraph: 5
+    title: Special categories of personal data are only processed for bias correction under strict conditions
+    applies_if: {processes_special_category_data: true}
+    checklist:
+      - id: safeguards
+        requirement: Conditions (a) to (f) are met for any processing of special categories of personal data
+        patterns: ['special\s+categor']
+
+  - id: A10.6
+    article: 10
+    paragraph: 6
+    title: Systems without model training apply paragraphs 2 to 5 to test data only
+    applies_if: {trains_models: false}
+    checklist:
+      - id: test_data_only
+        requirement: Data governance rules are applied to the testing data sets
+        patterns: ['test\s+data']
+
+  - id: A11.1
+    article: 11
+    paragraph: 1
+    title: Technical documentation is drawn up before release, kept current and covers Annex IV
+    checklist:
+      - id: before_release
+        requirement: Technical documentation is drawn up before the system is placed on the market or put into service
+        patterns: ['drawn\s+up\s+before']
+      - id: kept_current
+        requirement: Technical documentation is kept up to date
+        patterns: ['updated\s+with\s+every', 'kept\s+up.to.date']
+      - id: annex_iv
+        requirement: Technical documentation contains at least the elements of Annex IV
+        patterns: ['annex\s+iv']
+
+  - id: A11.2
+    article: 11
+    paragraph: 2
+    title: Single technical documentation for products under Annex I Section A legislation
+    applies_if: {annex_i_product: true}
+    checklist:
+      - id: single_set
+        requirement: One technical documentation set covers both the AI Act and the product legislation
+        patterns: ['single\s+set']
+
+  - id: A12.1
+    article: 12
+    paragraph: 1
+    title: The system automatically records events over its lifetime
+    checklist:
+      - id: automatic_logging
+        requirement: Events are recorded automatically by the system
+        patterns: ['logged\s+automatically', 'automatic\w*\s+(recording|logging)']
+      - id: lifetime
+        requirement: Logging covers the whole lifetime of the system
+        patterns: ['lifetime']
+
+  - id: A12.2
+    article: 12
+    paragraph: 2
+    title: Logs support traceability for risk situations, post-market monitoring and operations
+    checklist:
+      - id: risk_situations
+        requirement: Logs allow identifying situations where the system may present a risk
+        patterns: ['present\s+a\s+risk']
+      - id: substantial_modification
+        requirement: Logs allow identifying substantial modifications
+        patterns: ['substantial\s+modification']
+      - id: post_market
+        requirement: Logs support post-market monitoring
+        patterns: ['post-market']
+      - id: operation_monitoring
+        requirement: Logs support monitoring of the system's operation by the deployer
+        patterns: ['how\s+the\s+system\s+operates', 'monitor\w*\s+(the\s+)?operation']
+
+  - id: A12.3
+    article: 12
+    paragraph: 3
+    title: Minimum logging content for remote biometric identification systems
+    applies_if: {annex_iii_1a_biometric: true}
+    checklist:
+      - id: biometric_logs
+        requirement: Logs record period of use, reference database, matched input and verifying persons
+        patterns: ['reference\s+database']
+
+  - id: A13.1
+    article: 13
+    paragraph: 1
+    title: Operation is transparent enough for deployers to interpret and use the output
+    checklist:
+      - id: interpretable_output
+        requirement: Deployers can interpret the system's output
+        patterns: ['interpret\s+the\s+output', 'reason\s+codes']
+      - id: appropriate_use
+        requirement: Deployers are enabled to use the output appropriately
+        patterns: ['use\s+it\s+appropriately']
+
+  - id: A13.2
+    article: 13
+    paragraph: 2
+    title: Instructions for use accompany the system in an accessible format
+    checklist:
+      - id: ifu_exists
+        requirement: Instructions for use accompany the system
+        patterns: ['instructions\s+for\s+use\s+accompany']
+      - id: ifu_accessible
+        requirement: Instructions are provided in an appropriate digital or accessible format
+        patterns: ['digital\s+form']
+
+  - id: A13.3
+    article: 13
+    paragraph: 3
+    title: Instructions for use contain the minimum content of points (a) to (f)
+    checklist:
+      - id: provider_identity
+        requirement: Identity and contact details of the provider
+        patterns: ['developed\s+and\s+operated\s+by']
+      - id: intended_purpose
+        requirement: Intended purpose of the system
+        patterns: ['what\s+creditlens\s+does', 'intended\s+purpose']
+      - id: accuracy_metrics
+        requirement: Level of accuracy with its metrics and circumstances that may affect it
+        patterns: ['\bauc\b']
+      - id: limitations_misuse
+        requirement: Known limitations and foreseeable misuse that may lead to risks
+        patterns: ['foreseeable\s+misuse', 'limitations']
+      - id: group_performance
+        requirement: Performance for specific persons or groups of persons
+        patterns: ['specific\s+groups', 'by\s+age\s+band\s+and\s+sex']
+      - id: human_oversight_ref
+        requirement: Human oversight measures under Article 14
+        patterns: ['human\s+oversight']
+      - id: predetermined_changes
+        requirement: Changes to the system and its performance determined in advance by the provider
+        patterns: ['planned\s+changes', 'retrained\s+once\s+per\s+quarter']
+      - id: resources_lifetime
+        requirement: Computational and hardware resources needed, expected lifetime and maintenance measures
+        patterns: ['computational', 'hardware', 'expected\s+lifetime', 'maintenance']
+      - id: log_mechanism
+        requirement: Description of how deployers can collect, store and interpret the logs
+        patterns: ['deployers?\s+can\s+(collect|access|export)', 'interpret\s+the\s+logs']
+
+  - id: A14.1
+    article: 14
+    paragraph: 1
+    title: The system can be effectively overseen by people through suitable interface tools
+    checklist:
+      - id: interface_tools
+        requirement: Human-machine interface tools support oversight while the system is in use
+        patterns: ['workbench', 'interface']
+      - id: natural_persons
+        requirement: Natural persons effectively oversee the system during use
+        patterns: ['loan\s+officers?\s+(oversee|work)']
+
+  - id: A14.3
+    article: 14
+    paragraph: 3
+    title: Oversight measures are commensurate with risk and split between provider and deployer
+    checklist:
+      - id: risk_based
+        requirement: Oversight measures are proportionate to the risks, autonomy and context of use
+        patterns: ['depends\s+on\s+the\s+risk', 'commensurate']
+      - id: built_in
+        requirement: Some oversight measures are built into the system by the provider
+        patterns: ['built\s+into\s+the\s+system']
+      - id: deployer_measures
+        requirement: Some oversight measures are identified for the deployer to implement
+        patterns: ['implemented\s+by\s+the\s+branches', 'implemented\s+by\s+the\s+deployer']
+
+  - id: A14.4
+    article: 14
+    paragraph: 4
+    title: Overseers can understand, monitor, interpret, override and stop the system
+    checklist:
+      - id: understand_limits
+        requirement: Overseers understand the capacities and limitations of the system
+        patterns: ['known\s+limitations', 'what\s+the\s+model\s+does']
+      - id: monitor_anomalies
+        requirement: Overseers can monitor operation and detect anomalies and unexpected performance
+        patterns: ['unusual\s+behaviour', 'anomal']
+      - id: automation_bias
+        requirement: Overseers are made aware of automation bias (over-reliance on the output)
+        patterns: ['automation\s+bias', 'over-?reliance', 'rely\s+too\s+much']
+      - id: interpret_output
+        requirement: Overseers can correctly interpret the output
+        patterns: ['plain-language\s+explanations', 'reasons\s+make\s+sense']
+      - id: override
+        requirement: Overseers can decide not to use, disregard, override or reverse the output
+        patterns: ['disregard\s+or\s+reverse', 'override']
+      - id: stop
+        requirement: Overseers can intervene or interrupt the system with a stop button or similar procedure that brings it to a safe state
+        patterns: ['\bstop\b', '\bhalt\b', 'pause\s+scoring', 'interrupt']
+
+  - id: A14.5
+    article: 14
+    paragraph: 5
+    title: Two-person verification for remote biometric identification
+    applies_if: {annex_iii_1a_biometric: true}
+    checklist:
+      - id: four_eyes
+        requirement: Identifications are verified by at least two competent natural persons
+        patterns: ['two\s+natural\s+persons']
+
+  - id: A15.1
+    article: 15
+    paragraph: 1
+    title: Appropriate accuracy, robustness and cybersecurity, consistent over the lifecycle
+    checklist:
+      - id: appropriate_level
+        requirement: The system achieves an appropriate level of accuracy, robustness and cybersecurity
+        patterns: ['appropriate\s+level\s+of\s+accuracy']
+      - id: lifecycle_consistency
+        requirement: Performance stays consistent throughout the lifecycle
+        patterns: ['performing\s+consistently', 'over\s+its\s+lifecycle', 'monitored\s+monthly']
+
+  - id: A15.3
+    article: 15
+    paragraph: 3
+    title: Accuracy levels and metrics are declared in the instructions for use
+    checklist:
+      - id: declared_metrics
+        requirement: The instructions for use declare the accuracy levels and the metrics used
+        patterns: ['\bauc\b', 'calibration\s+error']
+
+  - id: A15.4
+    article: 15
+    paragraph: 4
+    title: The system is resilient to errors and faults and feedback loops are addressed
+    checklist:
+      - id: error_resilience
+        requirement: Technical and organisational measures make the system resilient to errors, faults and inconsistencies
+        patterns: ['input\s+validation', 'returns\s+an\s+error']
+      - id: fail_safe
+        requirement: Redundancy, backup or fail-safe plans are in place
+        patterns: ['fail-safe', 'fall\s+back', 'active-passive']
+      - id: feedback_loops
+        requirement: Risks from feedback loops are eliminated or mitigated if the system keeps learning
+        patterns: ['feedback', 'does\s+not\s+continue\s+to\s+learn']
+
+  - id: A15.5
+    article: 15
+    paragraph: 5
+    title: The system is resilient against attacks, including AI-specific attacks
+    checklist:
+      - id: unauthorised_access
+        requirement: Controls protect against unauthorised third parties altering use, outputs or performance
+        patterns: ['multi-factor', 'penetration\s+test', 'role\s+based']
+      - id: data_poisoning
+        requirement: Measures prevent, detect and respond to data poisoning
+        patterns: ['data\s+poisoning']
+      - id: model_poisoning
+        requirement: Measures address model poisoning of pre-trained components
+        patterns: ['model\s+poisoning']
+      - id: adversarial_examples
+        requirement: Measures address adversarial examples and model evasion
+        patterns: ['adversarial', 'evasion', 'evade']
